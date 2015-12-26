@@ -1,5 +1,5 @@
 class LinksController < ApplicationController
-  before_action :set_link, only: [:show, :edit, :update, :destroy]
+  before_action :set_link, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
   before_filter :authenticate_user!, except: [:index, :show]
   # GET /links
   # GET /links.json
@@ -61,6 +61,19 @@ class LinksController < ApplicationController
       format.html { redirect_to links_url, notice: 'Link was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+
+  def upvote
+    # @link = Link.find(params[:id]) # added upvote to set_link before_action
+    @link.upvote_by(current_user)
+    redirect_to :back
+  end
+
+
+  def downvote
+    @link.downvote_by(current_user)
+    redirect_to :back
   end
 
   private
