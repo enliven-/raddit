@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Links</h1>
+<!-- <h1>Listing Links</h1>
 
 <table>
   <thead>
@@ -30,4 +30,13 @@
 
 <% if current_user %>
 <%= link_to 'New Link', new_link_path %>
+<% end %> -->
+
+<% @links.each do |link| %>
+  <div class="link row clearfix">
+    <h3>
+      <%= link_to link.title, link %><br>
+      <small class="author">Submitted <%= time_ago_in_words(link.created_at) %> by <%= link.user.email %></small>
+    </h3>
+  </div>
 <% end %>
